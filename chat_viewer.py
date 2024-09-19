@@ -211,7 +211,7 @@ def process_data_urls(chat_df):
                 image_data = read_and_encode_file(row['image_path'], f'image/{imgExtn}')
                 chat_df.at[i, 'IMAGE_DATA_URL'] = f'data:image/{imgExtn};base64,{image_data}'
         else:
-            chat_df.at[i, 'IMAGE_DATA_URL'] = ''  # Set empty if image not found
+            chat_df.at[i, 'IMAGE_DATA_URL'] = ''  
 
         # Check if document (PDF) exists and encode it
         if os.path.isfile(row['DOCUMENT']):
@@ -227,7 +227,7 @@ def process_data_urls(chat_df):
         else:
             chat_df.at[i, 'VIDEO_URL'] = ''
 
-    return chat_df  # Return the DataFrame with encoded URLs
+    return chat_df  
 
 # Extract dates and their indices from the file
 dates_indices = extract_dates(file_name)
