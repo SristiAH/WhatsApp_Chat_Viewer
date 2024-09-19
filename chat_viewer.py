@@ -243,7 +243,6 @@ gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=800)
 gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell))
 gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell))
 gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell))
-gb.configure_column('URL', type='link')
 
 # Hide columns used for URL handling
 gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], hide=True)
@@ -268,7 +267,7 @@ gb.configure_column(
             return this.eGui;
           }
         }
-    """)
+    """), type='link'
 )
 
 st.sidebar.title("Filter by Month and Year")
