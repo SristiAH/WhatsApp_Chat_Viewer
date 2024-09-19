@@ -22,23 +22,39 @@ def extract_dates(file_path):
             index += 1  
     return dates_indices  
 
-# Function to get the range of indices for the filtered month and year
 def get_range_for_month_year(file_path, target_month, target_year):
-    dates_indices = extract_dates(file_path)
-    start_index, end_index = None, None
-
-    for date, i in dates_indices:
+    dates_indices = extract_dates(file_path)  # Extract date and index tuples from the file
+    start_index, end_index = None, None  
+    
+    found_matching_date = False  # Flag to indicate if we've found a matching month/year
+    
+    for idx, (date, i) in enumerate(dates_indices):
         day, month, year = date.split('/')  
-        # Check if the month and year match the target month and year
+        
         if month == target_month and year == target_year:
             if start_index is None:
                 start_index = i  
-            end_index = i    # Keep updating end_index with the latest matching index
-    
+            end_index = i  # Update the end index on every match
+            found_matching_date = True
+        
+        # If we've already found a matching month/year, check the next date
+        elif found_matching_date:
+            break
+
     if start_index is None:
+        # No matching month and year found
         return None, None, f"No data found for {target_month}/{target_year}"
-    
-    return start_index, end_index, None  # Return the start and end indices, and no error message
+
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        for j in range(end_index + 1, len(lines)):
+            if len(lines[j]) >= 14 and lines[j][2] == '/' and lines[j][5] == '/':
+                # Stop when a new date is encountered
+                break
+            # If no new date is found, extend the range to include this line
+            end_index = j
+
+    return start_index, end_index, None  
 
 # Function to process chat data between range of indices for the filtered month and year
 def process_chat(start_row, end_row, file, chat):
@@ -234,15 +250,15 @@ dates_indices = extract_dates(file_name)
 
 # Create GridOptionsBuilder for the AgGrid table
 gb = GridOptionsBuilder.from_dataframe(chat)
-gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=10)  # Enable pagination (10 rows per page)
+gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=10)  # Enable pagination 
 
-# Enable auto height for the 'MESSAGE' column to display the full text
-gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=800)
-
-# Set custom renderers for the columns containing images, documents, and videos
-gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell))
-gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell))
-gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell))
+gb.configure_column('SERIAL NO.', width=160)  
+gb.configure_column('DATE', width=150) 
+gb.configure_column('TIME', width=120)
+gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=600)
+gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell), width=200)
+gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell), width=200)
+gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell), width=200)
 
 # Hide columns used for URL handling
 gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], hide=True)
