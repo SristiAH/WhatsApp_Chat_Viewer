@@ -188,10 +188,11 @@ ShowImage = JsCode("""
 clicked_image_cell = """
 function(params){
     var imgSrc = params.data.IMAGE_DATA_URL;  
+    var extension = imgSrc.substring(imgSrc.indexOf('/')+1, imgSrc.indexOf(';base64'));
     if (imgSrc && imgSrc !== '') {
         var win = window.open("", "Image", "height=600, width=800, left=100, top=100");
         win.document.write("<img src='" + imgSrc + "' style='width:auto;height:auto;'><br>"+
-            "<a href='" + imgSrc + "' download>Download Image</a>");
+            "<a href='" + imgSrc + "' download='downloaded_image." + extension + "'>Download Image</a>");
         win.focus();
     }
 }
@@ -200,9 +201,12 @@ function(params){
 # JavaScript function to handle PDF clicks and open them in a new window
 clicked_pdf_cell = """
 function(params) {
-    var pdfUrl = params.data.PDF_URL;
+    var pdfUrl = params.data.PDF_URL; 
     if (pdfUrl && pdfUrl !== '') {
-        window.open(pdfUrl, '_blank');
+        var win = window.open("", "PDF", "height=600, width=800, left=100, top=100");
+        win.document.write("<a href='" + pdfUrl + "' download='document.pdf'>Download PDF</a><br>");
+        win.document.write("<iframe src='" + pdfUrl + "' width='100%' height='100%'></iframe>");
+        win.focus();
     }
 }
 """
