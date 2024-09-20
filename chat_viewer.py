@@ -10,6 +10,16 @@ import re    # For text pattern matching with regex
 # Set the page layout to wide 
 st.set_page_config(layout="wide")
 
+file_name = st.sidebar.text_input("Enter the text file: ", value="custom.txt", key="file_name")
+
+if not os.path.isfile(file_name):
+    st.warning("File doesn't exist")
+    st.stop()  
+
+file = open(file_name, 'r')
+
+chat = pd.DataFrame(columns=['SERIAL NO.', 'DATE', 'TIME', 'MESSAGE', 'image_path', 'DOCUMENT', 'VIDEO', 'URL'])
+
 # Function to extract dates and their corresponding indices from the text file
 def extract_dates(file_path):
     with open(file_path, 'r') as file:
@@ -211,11 +221,6 @@ function(params) {
     }
 }
 """
-
-file_name = 'custom.txt'    # Default text file
-file = open(file_name, 'r')
-
-chat = pd.DataFrame(columns=['SERIAL NO.', 'DATE', 'TIME', 'MESSAGE', 'image_path', 'DOCUMENT', 'VIDEO', 'URL'])
 
 # Function to process data and encode file URLs for images, documents, and videos
 def process_data_urls(chat_df):
