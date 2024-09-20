@@ -8,7 +8,7 @@ A web application built using Streamlit to enhance the way you interact with exp
 - Search: Search within chats filtered by month and year to quickly find specific content.
 - Customizability: Adjust the number of rows displayed per page, up to a maximum of 100 rows.
 
-Explore more and see the code by visiting the GitHub repository here: 
+GitHub repository: 
 	https://github.com/SristiAH/WhatsApp_Chat_Viewer
 
 ## Installation
