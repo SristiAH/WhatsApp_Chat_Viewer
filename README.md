@@ -49,7 +49,7 @@ streamlit run chat_viewer.py
 └── requirements.txt           # Dependencies
 ```
 
-## Setting up Python virtual environment
+## Setting up Python virtual environment (On Linux)
 
 I. Open a terminal and make sure you have Python 3 installed. You can check your Python version by running the following command:
 
