@@ -9,7 +9,7 @@ A web application built using Streamlit to enhance the way you interact with exp
 - Customizability: Adjust the number of rows displayed per page, up to a maximum of 100 rows.
 
 Explore more and see the code by visiting the GitHub repository here: 
-	https://github.com/SristiAH/chat_viewer
+	https://github.com/SristiAH/WhatsApp_Chat_Viewer
 
 ## Installation
 
