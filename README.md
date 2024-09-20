@@ -15,8 +15,8 @@ GitHub repository:
 
 To set up your Python environment to run the project, follow these steps:
 
-1. Clone the repository to your local machine.
-2. Navigate to the cloned directory.
+1. Set up the project directory structure as shown below.
+2. Open a terminal and navigate to the project directory.
 3. Create a virtual environment.
 4. Install the required packages:
 ```bash
