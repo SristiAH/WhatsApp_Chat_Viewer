@@ -261,10 +261,10 @@ dates_indices = extract_dates(file_name)
 gb = GridOptionsBuilder.from_dataframe(chat)
 gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=10)  # Enable pagination 
 
-gb.configure_column('SERIAL NO.', width=160)  
+gb.configure_column('SERIAL NO.', width=150)  
 gb.configure_column('DATE', width=150) 
-gb.configure_column('TIME', width=120)
-gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=600)
+gb.configure_column('TIME', width=100)
+gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=500)
 gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell), width=200)
 gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell), width=200)
 gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell), width=200)
@@ -334,7 +334,7 @@ AgGrid(
     gridOptions=grid_options,
     height=600,
     allow_unsafe_jscode=True,  
-    fit_columns_on_grid_load=True,
+    fit_columns_on_grid_load=False,
     use_container_width=True,
     updateMode=GridUpdateMode.VALUE_CHANGED
 )
