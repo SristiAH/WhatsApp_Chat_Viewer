@@ -42,7 +42,9 @@ streamlit run chat_viewer.py
 ├── Doc
 │   └── PDF documents              
 ├── image
-│   └── images                 
+│   └── images
+├── video
+│   └── mp4 files             
 ├── custom.txt	               # Default text file
 └── requirements.txt           # Dependencies
 ```
