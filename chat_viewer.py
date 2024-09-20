@@ -261,13 +261,10 @@ dates_indices = extract_dates(file_name)
 gb = GridOptionsBuilder.from_dataframe(chat)
 gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=10)  # Enable pagination 
 
-gb.configure_column('SERIAL NO.', width=150)  
-gb.configure_column('DATE', width=150) 
-gb.configure_column('TIME', width=100)
-gb.configure_column('MESSAGE', wrapText=True, autoHeight=True, width=500)
-gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell), width=200)
-gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell), width=200)
-gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell), width=200)
+gb.configure_column('MESSAGE', wrapText=True, autoHeight=True)
+gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicked_image_cell))
+gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell))
+gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell))
 
 # Hide columns used for URL handling
 gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], hide=True)
@@ -276,7 +273,6 @@ gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], h
 gb.configure_column(
     "URL",
     headerName="URL",
-    width=200,
     cellRenderer=JsCode("""
         class UrlCellRenderer {
           init(params) {
