@@ -40,6 +40,8 @@ source myenv/bin/activate
 streamlit run chat_viewer.py
 ```
 
+**Note:** The parent folder of the virtual environment folder should not be modified.
+
 ## Directory structure
 
 ```bash
