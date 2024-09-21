@@ -7,6 +7,7 @@ A web application built using Streamlit to enhance the way you interact with exp
 - Rich Media Handling: View images, PDF documents and videos directly within the chat interface.
 - Search: Search within chats filtered by month and year to quickly find specific content.
 - Customizability: Adjust the number of rows displayed per page, up to a maximum of 100 rows.
+- Access URLs
 
 GitHub repository: 
 	https://github.com/SristiAH/WhatsApp_Chat_Viewer
