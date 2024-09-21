@@ -1,4 +1,3 @@
-# Month and year filtering with comments
 import streamlit as st    # For building the web app
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode    # For creating interactive tables
 from st_aggrid.shared import JsCode    # To embed JavaScript in tables
