@@ -76,7 +76,7 @@ streamlit run chat_viewer.py
 ├── video
 │   └── mp4 files             
 ├── custom.txt	               # Default text file
-└── requirements.txt           # Download the file with Dependencies from this repo
+└── requirements.txt           # Dependencies 
 ```
 
 ## License
