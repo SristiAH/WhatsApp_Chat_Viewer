@@ -266,7 +266,6 @@ gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicke
 gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell))
 gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell))
 
-# Hide columns used for URL handling
 gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], hide=True)
 
 # Configure URL column to render clickable links
