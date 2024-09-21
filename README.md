@@ -31,8 +31,9 @@ To run the application:
 1. Open a terminal or command prompt.
 2. Navigate to the project directory.
 3. Activate your virtual environment:
+// On Linux
 ```bash
-source myenv/bin/activate        # On Linux
+source myenv/bin/activate        
 ``` 
 4. Run the following command:
 ```bash
