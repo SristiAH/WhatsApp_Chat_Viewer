@@ -75,7 +75,7 @@ streamlit run chat_viewer.py
 │   └── images
 ├── video
 │   └── mp4 files             
-├── custom.txt	               # Default text file
+├── custom.txt	               # Default name of exported WhatsApp chat file
 └── requirements.txt           # Dependencies 
 ```
 
