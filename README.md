@@ -30,7 +30,11 @@ To run the application:
 
 1. Open a terminal or command prompt.
 2. Navigate to the project directory.
-3. Run the following command:
+3. Activate your virtual environment:
+```bash
+source myenv/bin/activate        # On Linux
+``` 
+4. Run the following command:
 ```bash
 streamlit run chat_viewer.py
 ```
