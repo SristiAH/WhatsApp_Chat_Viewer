@@ -24,6 +24,28 @@ To set up your Python environment to run the project, follow these steps:
 pip install -r requirements.txt
 ```
 
+## Setting up Python virtual environment (On Linux)
+
+I. Open a terminal and make sure you have Python 3 installed. You can check your Python version by running the following command:
+
+	python3 --version
+
+II. Install the venv module, which is used to create virtual environments. You can do this by running the following command:
+
+	sudo apt-get install python3-venv
+
+III. Navigate to the directory where you want to create your virtual environment.
+
+IV. Run the following command to create a virtual environment with the name myenv:
+
+	python3 -m venv myenv
+
+V. Activate the virtual environment by running the following command:
+
+	source myenv/bin/activate
+
+Your virtual environment is now ready to use. You can install packages and run Python scripts inside the virtual environment without affecting the packages and scripts outside of it. To deactivate the virtual environment, run the deactivate command.
+
 ## Usage
 
 To run the application:
@@ -56,28 +78,6 @@ streamlit run chat_viewer.py
 ├── custom.txt	               # Default text file
 └── requirements.txt           # Dependencies
 ```
-
-## Setting up Python virtual environment (On Linux)
-
-I. Open a terminal and make sure you have Python 3 installed. You can check your Python version by running the following command:
-
-	python3 --version
-
-II. Install the venv module, which is used to create virtual environments. You can do this by running the following command:
-
-	sudo apt-get install python3-venv
-
-III. Navigate to the directory where you want to create your virtual environment.
-
-IV. Run the following command to create a virtual environment with the name myenv:
-
-	python3 -m venv myenv
-
-V. Activate the virtual environment by running the following command:
-
-	source myenv/bin/activate
-
-Your virtual environment is now ready to use. You can install packages and run Python scripts inside the virtual environment without affecting the packages and scripts outside of it. To deactivate the virtual environment, run the deactivate command.
 
 ## License
 
