@@ -36,7 +36,7 @@ def get_range_for_month_year(file_path, target_month, target_year):
     dates_indices = extract_dates(file_path)  # Extract date and index tuples from the file
     start_index, end_index = None, None  
     
-    found_matching_date = False  # Flag to indicate if we've found a matching month/year
+    found_matching_date = False  # Flag to indicate if we have found a matching month/year
     
     for idx, (date, i) in enumerate(dates_indices):
         day, month, year = date.split('/')  
@@ -47,7 +47,7 @@ def get_range_for_month_year(file_path, target_month, target_year):
             end_index = i  # Update the end index on every match
             found_matching_date = True
         
-        # If we've already found a matching month/year, check the next date
+        # If we have already found a matching month/year, check the next date
         elif found_matching_date:
             break
 
