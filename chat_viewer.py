@@ -1,3 +1,4 @@
+# Supports Windows OS along with Linux OS
 import streamlit as st    # For building the web app
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode    # For creating interactive tables
 from st_aggrid.shared import JsCode    # To embed JavaScript in tables
@@ -15,13 +16,13 @@ if not os.path.isfile(file_name):
     st.warning("File doesn't exist")
     st.stop()  
 
-file = open(file_name, 'r')
+file = open(file_name, 'r', encoding='utf-8') 
 
 chat = pd.DataFrame(columns=['SERIAL NO.', 'DATE', 'TIME', 'MESSAGE', 'image_path', 'DOCUMENT', 'VIDEO', 'URL'])
 
 # Function to extract dates and their corresponding indices from the text file
 def extract_dates(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_name, 'r', encoding='utf-8') as file:
         dates_indices = []
         index = 0
         for line in file:
@@ -35,7 +36,7 @@ def get_range_for_month_year(file_path, target_month, target_year):
     dates_indices = extract_dates(file_path)  # Extract date and index tuples from the file
     start_index, end_index = None, None  
     
-    found_matching_date = False  # Flag to indicate if we have found a matching month/year
+    found_matching_date = False  # Flag to indicate if we've found a matching month/year
     
     for idx, (date, i) in enumerate(dates_indices):
         day, month, year = date.split('/')  
@@ -46,7 +47,7 @@ def get_range_for_month_year(file_path, target_month, target_year):
             end_index = i  # Update the end index on every match
             found_matching_date = True
         
-        # If we have already found a matching month/year, check the next date
+        # If we've already found a matching month/year, check the next date
         elif found_matching_date:
             break
 
@@ -54,7 +55,7 @@ def get_range_for_month_year(file_path, target_month, target_year):
         # No matching month and year found
         return None, None, f"No data found for {target_month}/{target_year}"
 
-    with open(file_path, 'r') as file:
+    with open(file_name, 'r', encoding='utf-8') as file:
         lines = file.readlines()
         for j in range(end_index + 1, len(lines)):
             if len(lines[j]) >= 14 and lines[j][2] == '/' and lines[j][5] == '/':
@@ -107,21 +108,21 @@ def process_chat(start_row, end_row, file, chat):
         for word in data.split(' '):
             for ext in ['jpg', 'jpeg', 'png', 'gif']:
                 if word.endswith(ext):    # Check for image files
-                    imagepath = 'image/' + word
+                    imagepath = os.path.join('image', word)
                     if os.path.isfile(imagepath):
                         chat.loc[i, 'image_path'] = imagepath  
                     else:
                         chat.loc[i, 'image_path'] = word + ' not found'
 
             if word.endswith('.pdf'):    # Check for PDF files
-                filepath = 'Doc/' + word
+                filepath = os.path.join('Doc', word)
                 if os.path.isfile(filepath):
                     chat.loc[i, 'DOCUMENT'] = filepath  
                 else:
                     chat.loc[i, 'DOCUMENT'] = word + ' not found'
 
             if word.endswith('.mp4'):    # Check for video files
-                videopath = 'video/' + word
+                videopath = os.path.join('video', word)
                 if os.path.isfile(videopath):
                     chat.loc[i, 'VIDEO'] = videopath  
                 else:
@@ -265,6 +266,7 @@ gb.configure_column('IMAGE', cellRenderer=ShowImage, onCellClicked=JsCode(clicke
 gb.configure_column('DOCUMENT', onCellClicked=JsCode(clicked_pdf_cell))
 gb.configure_column('VIDEO', onCellClicked=JsCode(clicked_video_cell))
 
+# Hide columns used for URL handling
 gb.configure_columns(['IMAGE_DATA_URL', 'PDF_URL', 'VIDEO_URL', 'image_path'], hide=True)
 
 # Configure URL column to render clickable links
