@@ -299,6 +299,8 @@ selected_month = st.sidebar.selectbox("Select Month", months, index=5)  # Defaul
 # Number input to select a year from the sidebar
 selected_year = st.sidebar.number_input("Select Year", min_value=2024, max_value=2100, value=2024, step=1)
 
+st.sidebar.image("image/logo.jpg", width=25, use_column_width=False)
+
 # Get the start and end indices for the selected month and year
 start_index, end_index, message = get_range_for_month_year(file_name, selected_month, str(selected_year))
 
