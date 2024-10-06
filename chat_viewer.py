@@ -11,7 +11,11 @@ st.set_page_config(layout="wide")
 
 file_name = st.sidebar.text_input("Enter the text file: ", value="custom.txt", key="file_name")
 
-st.logo("image/logo.png")
+logo = "image/log.png"
+if os.path.isfile(logo):
+    st.logo(logo)
+else:
+    st.sidebar.warning("Logo missing")
 
 if not os.path.isfile(file_name):
     st.warning("File doesn't exist")
