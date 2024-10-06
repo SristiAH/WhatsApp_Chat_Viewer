@@ -11,7 +11,7 @@ st.set_page_config(layout="wide")
 
 file_name = st.sidebar.text_input("Enter the text file: ", value="custom.txt", key="file_name")
 
-logo = "image/log.png"
+logo = "image/logo.png"
 if os.path.isfile(logo):
     st.logo(logo)
 else:
