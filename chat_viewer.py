@@ -11,6 +11,8 @@ st.set_page_config(layout="wide")
 
 file_name = st.sidebar.text_input("Enter the text file: ", value="custom.txt", key="file_name")
 
+st.logo("image/logo.png")
+
 if not os.path.isfile(file_name):
     st.warning("File doesn't exist")
     st.stop()  
@@ -298,8 +300,6 @@ selected_month = st.sidebar.selectbox("Select Month", months, index=5)  # Defaul
 
 # Number input to select a year from the sidebar
 selected_year = st.sidebar.number_input("Select Year", min_value=2024, max_value=2100, value=2024, step=1)
-
-st.sidebar.image("image/logo.jpg", width=25, use_column_width=False)
 
 # Get the start and end indices for the selected month and year
 start_index, end_index, message = get_range_for_month_year(file_name, selected_month, str(selected_year))
