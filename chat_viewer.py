@@ -14,8 +14,6 @@ file_name = st.sidebar.text_input("Enter the text file: ", value="custom.txt", k
 logo = "image/logo.png"
 if os.path.isfile(logo):
     st.logo(logo)
-else:
-    st.sidebar.warning("Logo missing")
 
 if not os.path.isfile(file_name):
     st.warning("File doesn't exist")
