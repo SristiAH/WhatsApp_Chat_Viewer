@@ -59,7 +59,7 @@ source myenv/bin/activate
 ``` 
 4. Run the following command:
 ```bash
-streamlit run chat_viewer.py
+streamlit run chat_viewer_updated.py
 ```
 
 **Note:** The parent folder of the virtual environment folder should not be modified.
@@ -68,7 +68,7 @@ streamlit run chat_viewer.py
 
 ```bash
 ~/Directory
-├── chat_viewer.py     # Main script to run the application 
+├── chat_viewer_updated.py     # Main script to run the application 
 ├── Doc
 │   └── PDF documents              
 ├── image
