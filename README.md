@@ -5,7 +5,7 @@ A web application built using Streamlit to enhance the way you interact with exp
 ### Key Features:
 
 - Rich Media Handling: View images, PDF documents and videos directly within the chat interface.
-- Search: Search within chats filtered by month and year to quickly find specific content.
+- Search: Search within chats filtered by month and year to quickly find specific content or search through the entire chat.
 - Customizability: Adjust the number of rows displayed per page, up to a maximum of 100 rows.
 - Access URLs
 
