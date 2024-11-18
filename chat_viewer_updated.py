@@ -135,7 +135,6 @@ def process_chat(start_row, end_row, file, chat, text_search=None):
             search_chat = chat[m]
             if len(search_chat) == 100:
                 st.session_state['curr_pos'] = pos-1
-                st.write(pos)
                 return search_chat, 100
 
     # Finalize the last row
