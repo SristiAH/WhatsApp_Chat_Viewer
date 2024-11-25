@@ -80,14 +80,22 @@ def get_last_index(file_name):
 last_row = get_last_index(file_name) 
 
 # Function to process chat data between range of indices for the filtered month and year
-def process_chat(start_row, end_row, file, chat, text_search=None):
+def process_chat(start_row, end_row, file, chat, text_search=None, prev_message=None):
     a, b, c = '', '', ''
     i = -1  
+    search_results = []
+    pattern = re.compile(text_search, re.IGNORECASE) if text_search else None
+
+    # Start with the previous partial message if available
+    if prev_message:
+        a, b, c = prev_message['DATE'], prev_message['TIME'], prev_message['MESSAGE']
+        i = prev_message['ROW_INDEX']
 
     for pos, data in enumerate(file):
         if pos < start_row:
             continue  # Skip rows before start_row
 
+        # Write the previous row's values into the DataFrame
         if i != -1:  
             chat.loc[i, 'SERIAL NO.'] = i + 1
             chat.loc[i, 'DATE'] = a
@@ -95,6 +103,8 @@ def process_chat(start_row, end_row, file, chat, text_search=None):
             chat.loc[i, 'MESSAGE'] = c
 
         if pos > end_row:
+            # Save the current message state as the last processed message
+            prev_message = {'DATE': a, 'TIME': b, 'MESSAGE': c, 'ROW_INDEX': i}
             break  
 
         i += 1  
@@ -104,7 +114,7 @@ def process_chat(start_row, end_row, file, chat, text_search=None):
             if i > 0:  
                 a = chat.loc[i-1, 'DATE']
                 b = chat.loc[i-1, 'TIME']
-                i -= 1 
+                i -= 1  # Reuse the same row index for continuation
                 c += data
             continue
 
@@ -127,15 +137,20 @@ def process_chat(start_row, end_row, file, chat, text_search=None):
             if i > 0:  
                 a = chat.loc[i-1, 'DATE']
                 b = chat.loc[i-1, 'TIME']
-                i -= 1  
+                i -= 1  # Reuse the same row index for continuation
                 c += data
-            
-        if text_search:  
-            m = chat['MESSAGE'].str.contains(text_search, case=False)
-            search_chat = chat[m]
-            if len(search_chat) == 100:
-                st.session_state['curr_pos'] = pos-1
-                return search_chat, 100
+
+        if text_search and c:  # Check `c` for a match
+            if pattern.search(c):
+                search_results.append({'SERIAL NO.': i + 1, 'DATE': a, 'TIME': b, 'MESSAGE': c})
+
+                if len(search_results) > 1:
+                    if search_results[-2]['SERIAL NO.'] == search_results[-1]['SERIAL NO.']:
+                        del search_results[-2]  # Remove the last 2nd element
+
+                if len(search_results) == 100:
+                    st.session_state['curr_pos'] = pos
+                    return pd.DataFrame(search_results), prev_message
 
     # Finalize the last row
     if i >= 0:  
@@ -144,13 +159,13 @@ def process_chat(start_row, end_row, file, chat, text_search=None):
         chat.loc[i, 'TIME'] = b
         chat.loc[i, 'MESSAGE'] = c
 
-    if text_search:  
+    if text_search:
         m = chat['MESSAGE'].str.contains(text_search, case=False)
         search_chat = chat[m]
-        return search_chat, 100
-    
-    return chat, None
-  
+        return search_chat, prev_message
+
+    return chat, prev_message
+
 
 # Read and encode a file in Base64 format
 def read_and_encode_file(file_path, file_type):
@@ -383,7 +398,8 @@ if search_type=="Full Search" and text_search:
     file = open(file_name, 'r', encoding='utf-8')
     chat, next_pos = process_chat(st.session_state['curr_pos'], last_row, file, chat, text_search=text_search)
 
-    if st.button("Load More") and next_pos is not None:  
+    if st.button("Load More") and next_pos is not None:
+        file = open(file_name, 'r', encoding='utf-8')  
         chat, next_pos = process_chat(st.session_state['curr_pos'], last_row, file, chat, text_search=text_search)
 
     chat = process_data_urls(chat)
